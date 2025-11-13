@@ -1,16 +1,16 @@
-import type * as z from 'zod';
+import * as z from 'zod';
 import { type ErrSourceType, ValidationError } from '../errors.js';
 
 // パスパラメータやクエリパラメータの文字列をパースできるように敢えて string も許容している。
 // bigint の許容理由は、 DB で BIGINT 型を使っている場合に Prisma で生成されるカラムの型が bigint になるため。
-// export const zTolerantInt = z.union([
-//   z.number(),
-//   z.string().transform(Number),
-//   z.bigint().transform(Number),
-// ]);
+export const zTolerantInt = z.union([
+  z.number(),
+  z.string().transform(Number),
+  z.bigint().transform(Number),
+]);
 
-// export const zUint = zTolerantInt.pipe(z.int().min(0).max(Number.MAX_SAFE_INTEGER));
-// export const zNonZeroUint = zTolerantInt.pipe(z.int().min(1).max(Number.MAX_SAFE_INTEGER));
+export const zUint = zTolerantInt.pipe(z.int().min(0).max(Number.MAX_SAFE_INTEGER));
+export const zNonZeroUint = zTolerantInt.pipe(z.int().min(1).max(Number.MAX_SAFE_INTEGER));
 
 /**
  * ユーザ由来 / サーバ由来のパーサ関数を作成する。
