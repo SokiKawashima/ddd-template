@@ -1,0 +1,19 @@
+{
+  "$schema": "https://www.schemastore.org/package.json",
+  "name": "@repo/api",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "pnpm": "10.12.4",
+    "npm": "please_use_pnpm_instead",
+    "yarn": "please_use_pnpm_instead"
+  },
+  "packageManager": "pnpm@10.12.4",
+  "scripts": {
+    "build": "tsc --build",
+    "build:watch": "tsc --build --watch",
+    "lint": "biome lint .",
+    "format": "biome format . --write",
+    "check": "biome check ."
+  }
+}

@@ -1,0 +1,26 @@
+/* 各パッケージ内の tsconfig で extends する元となるベースの設定 */
+{
+  "$schema": "https://www.schemastore.org/tsconfig.json",
+  "compilerOptions": {
+    // 共通のオプション
+    "verbatimModuleSyntax": true, // トランスパイル時に型のimport/exportを完全に消して値のimport/exportは残す
+    "isolatedModules": true, // ファイル単位でのトランスパイルの際に正しく解釈できないファイルをエラーにする
+    "moduleDetection": "force", // 全てのファイルをESモジュールとして扱う
+    "forceConsistentCasingInFileNames": true, // importとファイル名の大文字小文字を一致させる
+    "skipLibCheck": true, // 全ての .d.ts の型チェックをスキップする
+    "types": ["vitest/importMeta"],
+    // 厳格なチェック
+    // 参考: https://github.com/tsconfig/bases/blob/main/bases/strictest.json
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}

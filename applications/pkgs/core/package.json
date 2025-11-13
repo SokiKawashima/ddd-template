@@ -1,0 +1,31 @@
+{
+  "$schema": "https://www.schemastore.org/package.json",
+  "name": "@repo/core",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "pnpm": "10.12.4",
+    "npm": "please_use_pnpm_instead",
+    "yarn": "please_use_pnpm_instead"
+  },
+  "packageManager": "pnpm@10.12.4",
+  "scripts": {
+    "build": "tsc --build",
+    "build:watch": "tsc --build --watch",
+    "lint": "biome lint .",
+    "format": "biome format . --write",
+    "check": "biome check .",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "neverthrow": "catalog:",
+    "zod": "catalog:"
+  }
+}

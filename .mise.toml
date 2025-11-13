@@ -1,0 +1,11 @@
+[tools]
+node = "22"
+
+aws-cli = "latest"
+"npm:pm2" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@openai/codex" = "latest"
+"npm:pnpm" = "10.12"
+
+[tasks.ls]
+run = "pm2 ls"

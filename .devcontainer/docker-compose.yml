@@ -1,0 +1,40 @@
+name: ddd
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/base:debian
+    command: sleep infinity
+    environment:
+      PGHOST: postgres
+      PGHOST_REPLICA: postgres
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGPORT: 5432
+      PGDATABASE: postgres
+      PGDATABASE_TEST: test
+      # GOOSE_DBSTRING: postgres://postgres:password@postgres:5432/postgres?sslmode=disable
+      # GOOSE_MIGRATION_DIR: /workspace/backend/migration
+      # GOOSE_DRIVER: postgres
+      # GOMAXPROCS: 32
+      # AWS_PROFILE_PREFIX: ${AWS_PROFILE_PREFIX:-devision}
+    volumes:
+      - ../:/workspace:cached
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
+      - ~/.gitconfig:/root/.gitconfig
+      - ~/.awsume:/root/.awsume
+      - mise_cache:/root/.cache/mise
+      - mise_installs:/root/.local/share/mise/installs
+    #   - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
+  postgres:
+    image: postgres:17.5
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data: {}
+  mise_cache: {}
+  mise_installs: {}
