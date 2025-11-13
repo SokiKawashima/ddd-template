@@ -1,0 +1,44 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//", // 参考: https://biomejs.dev/guides/big-projects/#monorepo
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "warn"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/**/*.mock.ts", "src/**/*.test.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/+shared/errors.ts"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noUselessConstructor": "off" // 子クラスでのコンストラクタ定義を許可
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/*/usecases/*.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConfusingVoidType": "off" // type Output = void; を許可
+          }
+        }
+      }
+    }
+  ]
+}

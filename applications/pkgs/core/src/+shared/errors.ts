@@ -22,6 +22,7 @@ export const isDomainError = (err: unknown): err is DomainBaseError => {
 };
 
 export class UnknownServerError extends DomainBaseError {
+  // biome-ignore lint/security/noSecrets: false positive
   readonly type = 'UnknownServerError';
   readonly source = 'SERVER';
   override readonly cause: unknown;
@@ -33,6 +34,7 @@ export class UnknownServerError extends DomainBaseError {
 }
 
 export class ValidationError extends DomainBaseError {
+  // biome-ignore lint/security/noSecrets: false positive
   readonly type = 'ValidationError';
   readonly source: ErrSourceType;
   override readonly cause: ZodError;
@@ -44,18 +46,8 @@ export class ValidationError extends DomainBaseError {
   }
 }
 
-export class InvalidFileUriError extends DomainBaseError {
-  readonly type = 'InvalidFileUriError';
-  readonly source = 'SERVER';
-  readonly uri: string;
-
-  constructor(payload: { message: string; uri: string }) {
-    super(`${payload.message}: ${payload.uri}`);
-    this.uri = payload.uri;
-  }
-}
-
 export class UnexpectedExternalApiError extends DomainBaseError {
+  // biome-ignore lint/security/noSecrets: false positive
   readonly type = 'UnexpectedExternalApiError';
   readonly source = 'SERVER';
   readonly request: unknown;
@@ -72,6 +64,7 @@ export class UnexpectedExternalApiError extends DomainBaseError {
 // switch や if の網羅性チェックの失敗分岐で使うエラー。
 // Python でいう assert_never のようなもの。
 export class ExhaustivenessCheckError extends DomainBaseError {
+  // biome-ignore lint/security/noSecrets: false positive
   readonly type = 'ExhaustivenessCheckError';
   readonly source = 'SERVER';
 
@@ -81,6 +74,7 @@ export class ExhaustivenessCheckError extends DomainBaseError {
 }
 
 export class ForbiddenError extends DomainBaseError {
+  // biome-ignore lint/security/noSecrets: false positive
   readonly type = 'ForbiddenError';
   readonly source = 'CLIENT';
 
@@ -90,24 +84,11 @@ export class ForbiddenError extends DomainBaseError {
 }
 
 export class BadRequestError extends DomainBaseError {
+  // biome-ignore lint/security/noSecrets: false positive
   readonly type = 'BadRequestError';
   readonly source = 'CLIENT';
 
   constructor(message: string) {
     super(message);
-  }
-}
-
-export class Missing1to1RelationError extends DomainBaseError {
-  readonly type = 'Missing1to1RelationError';
-  readonly source = 'SERVER';
-  readonly table: string;
-  readonly id: string | number;
-
-  constructor(payload: { table: string; id: string | number }) {
-    const { id, table } = payload;
-    super(`Missing 1-to-1 relation: ${table}#${id}`);
-    this.table = table;
-    this.id = id;
   }
 }

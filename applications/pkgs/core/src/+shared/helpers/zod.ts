@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import type * as z from 'zod';
 import { type ErrSourceType, ValidationError } from '../errors.js';
 
 // パスパラメータやクエリパラメータの文字列をパースできるように敢えて string も許容している。
@@ -33,13 +33,13 @@ export const zodClientDataParser = <T extends z.ZodType>(schema: T) => zodParser
 
 export const zodServerDataParser = <T extends z.ZodType>(schema: T) => zodParser(schema, 'SERVER');
 
-export const zodServerDataUnknownInputParser = <T extends z.ZodType>(schema: T) => {
-  type Input = { [K in keyof z.input<T>]: unknown };
-  return (input: Input): z.output<T> => {
-    const res = schema.safeParse(input);
-    if (res.success) {
-      return res.data;
-    }
-    throw new ValidationError(res.error, 'SERVER');
-  };
-};
+// export const zodServerDataUnknownInputParser = <T extends z.ZodType>(schema: T) => {
+//   type Input = { [K in keyof z.input<T>]: unknown };
+//   return (input: Input): z.output<T> => {
+//     const res = schema.safeParse(input);
+//     if (res.success) {
+//       return res.data;
+//     }
+//     throw new ValidationError(res.error, 'SERVER');
+//   };
+// };
