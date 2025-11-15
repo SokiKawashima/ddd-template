@@ -1,23 +1,23 @@
-import * as z from "zod";
-import { zodClientDataParser, zodServerDataParser, zUint } from "../+shared/helpers/zod.js";
+import * as z from 'zod';
+import { zodClientDataParser, zodServerDataParser, zUint } from '../+shared/helpers/zod.js';
 
 export const zUserId = zUint.brand<'UserId'>();
 export type UserId = z.infer<typeof zUserId>;
 export const userId = {
-    parseClient: zodClientDataParser(zUserId),
-    parseServer: zodServerDataParser(zUserId),
+  parseClient: zodClientDataParser(zUserId),
+  parseServer: zodServerDataParser(zUserId),
 };
 
 export const zUserName = z.string().min(1).max(32).brand<'UserName'>();
 export type UserName = z.infer<typeof zUserName>;
 export const userName = {
-    parseClient: zodClientDataParser(zUserName),
-    parseServer: zodServerDataParser(zUserName),
+  parseClient: zodClientDataParser(zUserName),
+  parseServer: zodServerDataParser(zUserName),
 };
 
 export const zUserEmail = z.email().brand<'UserEmail'>();
 export type UserEmail = z.infer<typeof zUserEmail>;
 export const userEmail = {
-    parseClient: zodClientDataParser(zUserEmail),
-    parseServer: zodServerDataParser(zUserEmail),
+  parseClient: zodClientDataParser(zUserEmail),
+  parseServer: zodServerDataParser(zUserEmail),
 };

@@ -1,8 +1,8 @@
 // import type { Result, ResultAsync } from 'neverthrow';
 // import { checkNullAsync, flattenPromiseResult } from '../utils/result.js';
 
-import type { ResultAsync } from "neverthrow";
-import { checkNullAsync } from "../utils/result.js";
+import type { ResultAsync } from 'neverthrow';
+import { checkNullAsync } from '../utils/result.js';
 
 /**
  * 読み取り処理しかしないトランザンクションのハンドル。
@@ -13,8 +13,7 @@ import { checkNullAsync } from "../utils/result.js";
  * 型で表現しているだけで、SQL が読み取り処理しかしないことを静的にチェックできるわけではない。
  * リポジトリ層のメソッド引数に指定するが、そのメソッドが読み取り処理しかしないことを保証するのはプログラマの責務。
  */
-export interface IReadOnlyTxHandle {
-}
+export type IReadOnlyTxHandle = object;
 
 /**
  * 読み取り・書き込みの両方ができるトランザクションのハンドル。
@@ -68,13 +67,13 @@ export abstract class ITxExecutor<
     return checkNullAsync(this.doReadOnlyTx(fn, options));
   }
 
-//   /**
-//    * doReadWriteTx の ResultAsync 版。
-//    */
-//   doReadWriteTxForResult<T, E>(
-//     fn: (tx: ReadWriteTx) => Promise<Result<T, E>>,
-//     options?: TransactionOptions
-//   ): ResultAsync<T, E> {
-//     return flattenPromiseResult(this.doReadWriteTx(userId, fn, options));
-//   }
+  //   /**
+  //    * doReadWriteTx の ResultAsync 版。
+  //    */
+  //   doReadWriteTxForResult<T, E>(
+  //     fn: (tx: ReadWriteTx) => Promise<Result<T, E>>,
+  //     options?: TransactionOptions
+  //   ): ResultAsync<T, E> {
+  //     return flattenPromiseResult(this.doReadWriteTx(userId, fn, options));
+  //   }
 }

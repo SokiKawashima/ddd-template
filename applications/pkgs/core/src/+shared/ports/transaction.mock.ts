@@ -1,4 +1,3 @@
-
 import {
   type IReadOnlyTxHandle,
   type IReadWriteTxHandle,
@@ -6,12 +5,10 @@ import {
   type TransactionOptions,
 } from './transaction.js';
 
-export class MockReadOnlyTxHandle implements IReadOnlyTxHandle {
-}
+export class MockReadOnlyTxHandle implements IReadOnlyTxHandle {}
 
 export class MockReadWriteTxHandle implements IReadWriteTxHandle {
   readonly __type = 'ReadWrite' as const;
-
 }
 
 export class MockTxExecutor extends ITxExecutor<MockReadOnlyTxHandle, MockReadWriteTxHandle> {
