@@ -9,8 +9,23 @@
     "declarationMap": true,
     "sourceMap": true,
     "incremental": true,
-    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
+    // api 専用の設定
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2024",
+    "types": ["node"],
+    "lib": [
+      "ES2024",
+      "ESNext.Array",
+      "ESNext.AsyncIterable",
+      "ESNext.Collection",
+      "ESNext.Intl",
+      "ESNext.Iterator",
+      "ESNext.Promise"
+    ],
+    "exactOptionalPropertyTypes": false // Honoなどのライブラリが `| undefined` 付きで定義していないがちなので無効にする
   },
-  "include": ["src"],
+  "include": ["src"], // src/**/* と同じ
   "exclude": ["node_modules", "dist", ".turbo"]
 }

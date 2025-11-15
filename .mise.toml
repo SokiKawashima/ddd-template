@@ -9,3 +9,18 @@ aws-cli = "latest"
 
 [tasks.ls]
 run = "pm2 ls"
+
+[tasks."dev"]
+dir = "{{config_root}}/applications"
+run = "pnpm run dev"
+
+[tasks."check"]
+dir = "{{config_root}}/applications"
+run = "pnpm run check"
+
+[tasks."test"]
+dir = "{{config_root}}/applications"
+run = "pnpm run test"
+
+[env]
+ENV_NAME = 'local'

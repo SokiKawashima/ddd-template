@@ -10,10 +10,25 @@
   },
   "packageManager": "pnpm@10.12.4",
   "scripts": {
+    "dev": "tsx watch --clear-screen=false src/main.ts",
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
     "lint": "biome lint .",
     "format": "biome format . --write",
-    "check": "biome check ."
+    "check": "biome check . --write"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "catalog:",
+    "@hono/node-server": "catalog:",
+    "@hono/zod-validator": "catalog:",
+    "hono": "catalog:",
+    "neverthrow": "catalog:",
+    "ts-pattern": "catalog:",
+    "zod": "catalog:",
+    "@repo/core": "workspace:^",
+    "@repo/infrastructure": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
   }
 }
