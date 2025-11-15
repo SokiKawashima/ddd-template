@@ -22,6 +22,7 @@ services:
       - ~/.ssh:/root/.ssh
       - ~/.gitconfig:/root/.gitconfig
       - ~/.awsume:/root/.awsume
+      - ~/.codex:/root/.codex
       - mise_cache:/root/.cache/mise
       - mise_installs:/root/.local/share/mise/installs
     #   - ${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock
