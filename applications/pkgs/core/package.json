@@ -14,7 +14,7 @@
     "build:watch": "tsc --build --watch",
     "lint": "biome lint .",
     "format": "biome format . --write",
-    "check": "biome check .",
+    "check": "biome check . --write",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
