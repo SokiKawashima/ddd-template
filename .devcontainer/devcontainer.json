@@ -25,11 +25,9 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": [
-        "openai.chatgpt",
-        "biomejs.biome"
-      ],
+      "extensions": ["openai.chatgpt", "biomejs.biome"],
       "settings": {
+        "terminal.integrated.cwd": "/workspace/applications",
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file",
         "editor.defaultFormatter": "biomejs.biome",
@@ -56,6 +54,8 @@
             "args": ["-l"]
           }
         },
+        "biome.lspBin": "/workspace/applications/node_modules/@biomejs/biome/bin/biome",
+        // "biome.configurationPath": "/workspace/applications/biome.jsonc", // うまく動かないのでコメントアウトしてルートに配置した
         "mise.binPath": "/usr/local/bin/mise",
         "files.watcherExclude": {
           "**/.git/objects/**": true,
