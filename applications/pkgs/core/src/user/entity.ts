@@ -3,7 +3,7 @@ import { zUserEmail, zUserId, zUserName } from "./value-object.js";
 import { zodServerDataParser } from "../+shared/helpers/zod.js";
 
 export const zUser = z.object({
-    id: zUserId,
+    userId: zUserId,
     name: zUserName,
     email: zUserEmail,
     createdAt: z.date(),
