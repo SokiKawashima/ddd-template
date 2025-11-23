@@ -27,7 +27,11 @@
     "vscode": {
       "extensions": ["openai.chatgpt", "biomejs.biome"],
       "settings": {
+        /** ============================== */
+        /** ワークスペースのデフォルトパスを設定 */
         "terminal.integrated.cwd": "/workspace/applications",
+        /** ============================== */
+        /** フォーマットの設定 */
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file",
         "editor.defaultFormatter": "biomejs.biome",
@@ -56,12 +60,30 @@
         },
         "biome.lspBin": "/workspace/applications/node_modules/@biomejs/biome/bin/biome",
         // "biome.configurationPath": "/workspace/applications/biome.jsonc", // うまく動かないのでコメントアウトしてルートに配置した
+        /** ============================== */
+        /** miseの設定 */
         "mise.binPath": "/usr/local/bin/mise",
+        /** ============================== */
+        /** ファイルの監視を無効化 */
         "files.watcherExclude": {
           "**/.git/objects/**": true,
           "**/.git/subtree-cache/**": true,
           "**/node_modules/*/**": true
-        }
+        },
+        /** ============================== */
+        /** ターミナルのベルを無効化 */
+        "terminal.integrated.enableBell": false,
+        "editor.accessibilitySupport": "off",
+        "accessibility.signals.terminalCommandFailed": {
+          "sound": "off",
+          "announcement": "off"
+        },
+        "accessibility.signals.terminalCommandSucceeded": {
+          "sound": "off",
+          "announcement": "off"
+        },
+        "accessibility.signalOptions.volume": 0
+        /** ============================== */
       }
     }
   }

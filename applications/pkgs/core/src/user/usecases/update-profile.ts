@@ -2,14 +2,13 @@ import z from 'zod';
 import { defineAuthedUsecase } from '../../+shared/helpers/usecase-constructure.js';
 import { zodClientDataParser } from '../../+shared/helpers/zod.js';
 import type { ITxExecutor } from '../../+shared/ports/transaction.js';
-import { type UserDto, userDto } from '../dto.js';
 import type { IUserRepository } from '../ports/repository.js';
-import { zUserId } from '../value-object.js';
+import { zUserName } from '../value-object.js';
 
 // IO Sheme
 export const zInput = z
   .object({
-    userId: zUserId,
+    userName: zUserName,
   })
   .brand<'UsecaseInput'>();
 
@@ -17,23 +16,17 @@ export const parseInput = zodClientDataParser(zInput);
 
 // Type
 export type Input = z.infer<typeof zInput>;
-export type Output = UserDto | null;
+export type Output = void;
 export type Deps = Readonly<{
   txExecutor: ITxExecutor;
   userRepository: IUserRepository;
 }>;
 
-export const makeUsecase = defineAuthedUsecase<Deps, Input, Output>(async (deps, _auth, input) => {
-  const { userId } = input;
-  const user = await deps.txExecutor.doReadOnlyTx(async (tx) => {
-    return await deps.userRepository.findById(tx, userId);
-  });
-  if (!user) {
-    return null;
-  }
-  return userDto.parseServer({
-    userId: user.userId,
-    name: user.name,
-    email: user.email,
+export const makeUsecase = defineAuthedUsecase<Deps, Input, Output>(async (deps, auth, input) => {
+  const { userId } = auth;
+  const { userName } = input;
+
+  await deps.txExecutor.doReadWriteTx(async (tx) => {
+    return await deps.userRepository.updateProfile(tx, userId, { name: userName });
   });
 });

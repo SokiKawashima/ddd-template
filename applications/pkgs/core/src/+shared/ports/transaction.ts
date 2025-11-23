@@ -1,8 +1,8 @@
 // import type { Result, ResultAsync } from 'neverthrow';
 // import { checkNullAsync, flattenPromiseResult } from '../utils/result.js';
 
-import type { ResultAsync } from 'neverthrow';
-import { checkNullAsync } from '../utils/result.js';
+import type { Result, ResultAsync } from 'neverthrow';
+import { checkNullAsync, flattenPromiseResult } from '../utils/result.js';
 
 /**
  * 読み取り処理しかしないトランザンクションのハンドル。
@@ -67,13 +67,13 @@ export abstract class ITxExecutor<
     return checkNullAsync(this.doReadOnlyTx(fn, options));
   }
 
-  //   /**
-  //    * doReadWriteTx の ResultAsync 版。
-  //    */
-  //   doReadWriteTxForResult<T, E>(
-  //     fn: (tx: ReadWriteTx) => Promise<Result<T, E>>,
-  //     options?: TransactionOptions
-  //   ): ResultAsync<T, E> {
-  //     return flattenPromiseResult(this.doReadWriteTx(userId, fn, options));
-  //   }
+  /**
+   * doReadWriteTx の ResultAsync 版。
+   */
+  doReadWriteTxForResult<T, E>(
+    fn: (tx: ReadWriteTx) => Promise<Result<T, E>>,
+    options?: TransactionOptions
+  ): ResultAsync<T, E> {
+    return flattenPromiseResult(this.doReadWriteTx(fn, options));
+  }
 }

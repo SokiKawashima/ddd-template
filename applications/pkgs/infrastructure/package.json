@@ -15,5 +15,10 @@
     "lint": "biome lint .",
     "format": "biome format . --write",
     "check": "biome check . --write"
+  },
+  "dependencies": {
+    "@prisma/client": "catalog:",
+    "ts-pattern": "catalog:",
+    "zod": "catalog:"
   }
 }

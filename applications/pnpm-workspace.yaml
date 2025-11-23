@@ -15,8 +15,9 @@ catalog:
   '@hono/node-server': ^1.19.6
   '@hono/zod-validator': ^0.7.4
   hono: ^4.10.6
-  ts-pattern: ^5.9.0
+  ts-pattern: 5.9.0
   '@types/node': ^24.10.1
+  '@prisma/client': ^6.19.0
 
 catalogMode: prefer
 
