@@ -22,6 +22,39 @@ run = "pnpm run check"
 dir = "{{config_root}}/applications"
 run = "pnpm run test"
 
+[tasks."build"]
+dir = "{{config_root}}/applications"
+run = "pnpm run build"
+
+[tasks."add:workspace"]
+dir = "{{config_root}}"
+run = "pnpm add -Dw {{@}}"
+
+# mise run add:@repo/core <package>
+# mise run add:@repo/core -D <package>
+[tasks."add:@repo/core"]
+dir = "{{config_root}}"
+run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @repo/core; else pnpm add \"$@\" --filter @repo/core; fi' sh {{@}}"
+
+[tasks."add:@repo/infrastructure"]
+dir = "{{config_root}}"
+run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @repo/infrastructure; else pnpm add \"$@\" --filter @repo/infrastructure; fi' sh {{@}}"
+
+[tasks."add:@repo/api"]
+dir = "{{config_root}}"
+run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @repo/api; else pnpm add \"$@\" --filter @repo/api; fi' sh {{@}}"
+
+[tasks."add:@repo/front"]
+dir = "{{config_root}}"
+run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @repo/front; else pnpm add \"$@\" --filter @repo/front; fi' sh {{@}}"
+
+[tasks."add:@repo/cdk"]
+dir = "{{config_root}}"
+run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @repo/cdk; else pnpm add \"$@\" --filter @repo/cdk; fi' sh {{@}}"
+
+[tasks."prisma:generate"]
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma generate"
 
 [env]
 ENV_NAME = 'local'
