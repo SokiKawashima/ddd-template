@@ -1,7 +1,7 @@
 import * as z from 'zod';
-import { zodClientDataParser, zodServerDataParser, zUint } from '../+shared/helpers/zod.js';
+import { zodClientDataParser, zodServerDataParser } from '../+shared/helpers/zod.js';
 
-export const zUserId = zUint.brand<'UserId'>();
+export const zUserId = z.uuid().brand<'UserId'>();
 export type UserId = z.infer<typeof zUserId>;
 export const userId = {
   parseClient: zodClientDataParser(zUserId),

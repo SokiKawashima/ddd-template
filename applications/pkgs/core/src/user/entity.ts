@@ -1,4 +1,4 @@
-import z from 'zod';
+import * as z from 'zod';
 import { zodServerDataParser } from '../+shared/helpers/zod.js';
 import { zUserEmail, zUserId, zUserName } from './value-object.js';
 
@@ -8,10 +8,11 @@ export const zUser = z
     name: zUserName,
     email: zUserEmail,
     createdAt: z.date(),
+    updatedAt: z.date(),
   })
   .readonly()
   .brand<'User'>();
 export type User = z.infer<typeof zUser>;
-export const user = {
+export const User = {
   parseServer: zodServerDataParser(zUser),
 };
