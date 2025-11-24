@@ -18,7 +18,16 @@
   },
   "dependencies": {
     "@prisma/client": "catalog:",
+    "@prisma/config": "catalog:",
+    "@repo/core": "workspace:^",
+    "aws-jwt-verify": "catalog:",
+    "neverthrow": "catalog:",
+    "prisma": "catalog:",
     "ts-pattern": "catalog:",
     "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "prisma-erd-generator": "catalog:"
   }
 }

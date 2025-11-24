@@ -25,7 +25,12 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["openai.chatgpt", "biomejs.biome"],
+      "extensions": [
+        "openai.chatgpt",
+        "biomejs.biome",
+        "tamasfe.even-better-toml",
+        "bierner.markdown-mermaid"
+      ],
       "settings": {
         /** ============================== */
         /** ワークスペースのデフォルトパスを設定 */

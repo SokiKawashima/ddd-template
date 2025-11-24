@@ -16,8 +16,12 @@ catalog:
   '@hono/zod-validator': ^0.7.4
   hono: ^4.10.6
   ts-pattern: 5.9.0
-  '@types/node': ^24.10.1
-  '@prisma/client': ^6.19.0
+  '@types/node': 24.10.1
+  '@prisma/client': ^7.0.0
+  aws-jwt-verify: ^5.1.1
+  prisma: ^7.0.0
+  prisma-erd-generator: ^2.3.0
+  '@prisma/config': ^7.0.0
 
 catalogMode: prefer
 

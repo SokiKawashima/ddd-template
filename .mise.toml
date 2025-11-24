@@ -22,5 +22,13 @@ run = "pnpm run check"
 dir = "{{config_root}}/applications"
 run = "pnpm run test"
 
+
 [env]
 ENV_NAME = 'local'
+
+PGUSER = 'app'
+PGPASSWORD = 'password'
+PGHOST = 'localhost'
+PGPORT = 5432
+PGDATABASE = 'main'
+DATABASE_URL = 'postgresql://admin:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}'
