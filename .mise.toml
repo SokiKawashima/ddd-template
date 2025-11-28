@@ -10,6 +10,9 @@ aws-cli = "latest"
 [tasks.ls]
 run = "pm2 ls"
 
+#####################################
+########## workspace tasks ##########
+#####################################
 [tasks."dev"]
 dir = "{{config_root}}/applications"
 run = "pnpm run dev"
@@ -30,9 +33,7 @@ run = "pnpm run build"
 dir = "{{config_root}}"
 run = "pnpm add -Dw {{@}}"
 
-# mise run add:@repo/core <package>
-# mise run add:@repo/core -D <package>
-[tasks."add:@repo/core"]
+[tasks."add:@repo/core"] # mise run add:@repo/core -D <package>
 dir = "{{config_root}}"
 run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @repo/core; else pnpm add \"$@\" --filter @repo/core; fi' sh {{@}}"
 
@@ -52,16 +53,35 @@ run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @r
 dir = "{{config_root}}"
 run = "sh -c 'if [ \"$1\" = \"-D\" ]; then shift; pnpm add -D \"$@\" --filter @repo/cdk; else pnpm add \"$@\" --filter @repo/cdk; fi' sh {{@}}"
 
+
+
+#####################################
+####### infrastructure tasks ########
+#####################################
 [tasks."prisma:generate"]
 dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
 run = "pnpm prisma generate"
 
+[tasks."prisma:migrate:dev"] # mise run prisma:migrate --name <migration_name>
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma migrate dev --schema prisma/schema.prisma --config prisma/prisma.config.ts"
+
+[tasks."prisma:migrate:deploy"]
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma migrate deploy --schema prisma/schema.prisma --config prisma/prisma.config.ts"
+
+[tasks."prisma:studio"]
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma studio --url postgresql://admin:password@postgres:5432/main"
+#####################################
+########## environment ##############
+#####################################
 [env]
 ENV_NAME = 'local'
 
-PGUSER = 'app'
+PGUSER = 'admin'
 PGPASSWORD = 'password'
-PGHOST = 'localhost'
+PGHOST = 'postgres'
 PGPORT = 5432
 PGDATABASE = 'main'
-DATABASE_URL = 'postgresql://admin:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}'
+DATABASE_URL = 'postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}'

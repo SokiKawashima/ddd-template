@@ -3,8 +3,11 @@ import { env } from '../src/postgres/env.js';
 
 export default defineConfig({
     schema: './prisma/schema.prisma',
+    migrations: {
+        path: './prisma/migrations'
+    },
     datasource: {
-        url: env.DATABASE_URL
+        url: 'postgresql://admin:password@postgres:5432/main'
     },
     
 });
