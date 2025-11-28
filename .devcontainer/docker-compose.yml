@@ -3,18 +3,9 @@ services:
   app:
     image: mcr.microsoft.com/devcontainers/base:debian
     command: sleep infinity
-    # environment:
-    #   PGHOST: postgres
-    #   PGHOST_REPLICA: postgres
-    #   PGUSER: postgres
-    #   PGPASSWORD: password
-    #   PGPORT: 5432
-    #   PGDATABASE: postgres
-    #   PGDATABASE_TEST: test
-      # GOOSE_DBSTRING: postgres://postgres:password@postgres:5432/postgres?sslmode=disable
-      # GOOSE_MIGRATION_DIR: /workspace/backend/migration
-      # GOOSE_DRIVER: postgres
-      # GOMAXPROCS: 32
+    environment:
+      # DATABASE_URL: postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}
+      DATABASE_URL: ${DATABASE_URL}
       # AWS_PROFILE_PREFIX: ${AWS_PROFILE_PREFIX:-devision}
     volumes:
       - ../:/workspace:cached
@@ -29,9 +20,9 @@ services:
   postgres:
     image: postgres:17.5
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: admin
-      POSTGRES_DB: main
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDATABASE}
     volumes:
       - pg_data:/var/lib/postgresql/data
 
