@@ -8,6 +8,14 @@ export const userId = {
   parseServer: zodServerDataParser(zUserId),
 };
 
+const clerkIdPattern = /^user_[0-9A-Za-z]{27}$/;
+export const zClerkId = z.string().regex(clerkIdPattern).brand<'ClerkId'>();
+export type ClerkId = z.infer<typeof zClerkId>;
+export const ClerkId = {
+  parseClient: zodClientDataParser(zClerkId),
+  parseServer: zodServerDataParser(zClerkId),
+};
+
 export const zUserName = z.string().min(1).max(32).brand<'UserName'>();
 export type UserName = z.infer<typeof zUserName>;
 export const userName = {

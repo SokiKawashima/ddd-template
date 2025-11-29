@@ -47,7 +47,7 @@ run = "pnpm prisma migrate reset --schema prisma/schema.prisma --config prisma/p
 
 [tasks."prisma:studio"]
 dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
-run = "pnpm prisma studio --url postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}"
+run = "pnpm prisma studio --url postgres://admin:password@postgres:5432/main"
 #####################################
 ########## environment ##############
 #####################################

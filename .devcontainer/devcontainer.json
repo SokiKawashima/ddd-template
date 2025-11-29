@@ -30,7 +30,8 @@
         "openai.chatgpt",
         "biomejs.biome",
         "tamasfe.even-better-toml",
-        "bierner.markdown-mermaid"
+        "bierner.markdown-mermaid",
+        "prisma.prisma-insider"
       ],
       "settings": {
         /** ============================== */

@@ -14,8 +14,7 @@ export const authMiddleware = (deps: SharedDeps) => {
     const auth = getAuth(c);
     if (auth?.userId) {
       const authenticate = Authenticate.makeUsecase(deps);
-      const userId = `user_${auth.userId}`;
-      const input = parseInput({ userId });
+      const input = parseInput({ clerkId: auth.userId });
       const authenticatedUser = await authenticate(input);
       if (!authenticatedUser) {
         return c.json('no found user', 404);

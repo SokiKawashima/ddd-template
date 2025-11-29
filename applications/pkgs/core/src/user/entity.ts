@@ -1,10 +1,11 @@
 import * as z from 'zod';
 import { zodServerDataParser } from '../+shared/helpers/zod.js';
-import { zUserEmail, zUserId, zUserName } from './value-object.js';
+import { zClerkId, zUserEmail, zUserId, zUserName } from './value-object.js';
 
 export const zUser = z
   .object({
     userId: zUserId,
+    clerkId: zClerkId,
     name: zUserName,
     email: zUserEmail,
     createdAt: z.date(),
@@ -20,6 +21,7 @@ export const User = {
 export const zAuthenticatedUser = z
   .object({
     userId: zUserId,
+    clerkId: zClerkId,
     name: zUserName,
     email: zUserEmail,
   })

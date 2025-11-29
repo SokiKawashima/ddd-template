@@ -4,12 +4,12 @@ import { zodClientDataParser } from '../../+shared/helpers/zod.js';
 import type { ITxExecutor } from '../../+shared/ports/transaction.js';
 import { AuthenticatedUser } from '../entity.js';
 import type { IUserRepository } from '../ports/repository.js';
-import { zUserId } from '../value-object.js';
+import { zClerkId } from '../value-object.js';
 
 // IO Sheme
 export const zInput = z
   .object({
-    userId: zUserId,
+    clerkId: zClerkId,
   })
   .brand<'UsecaseInput'>();
 export const parseInput = zodClientDataParser(zInput);
@@ -23,15 +23,16 @@ export type Deps = Readonly<{
 }>;
 
 export const makeUsecase = defineNoAuthUsecase<Deps, Input, Output>(async (deps, input) => {
-  const { userId } = input;
+  const { clerkId } = input;
   const user = await deps.txExecutor.doReadOnlyTx(async (tx) => {
-    return await deps.userRepository.findById(tx, userId);
+    return await deps.userRepository.findByClerkId(tx, clerkId);
   });
   if (!user) {
     return null;
   }
   return AuthenticatedUser.parseServer({
     userId: user.userId,
+    clerkId: user.clerkId,
     name: user.name,
     email: user.email,
   });
