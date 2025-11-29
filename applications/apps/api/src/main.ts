@@ -1,3 +1,4 @@
+import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
 import { serve } from '@hono/node-server';
 import { zValidator } from '@hono/zod-validator';
 import { AuthenticatedUserParser } from '@repo/core/+shared/helpers/usecase-constructure';
@@ -12,6 +13,27 @@ const route = new Hono()
   // API Routes
   .get('api/health', (c) => c.json({ message: 'OK' }))
   .use('/*', authMiddleware())
+  .use(
+    '*',
+    clerkMiddleware({
+      secretKey: env.CLERK_SECRET_KEY,
+      publishableKey: env.CLERK_PUBLISHABLE_KEY,
+    })
+  )
+  .get('/', (c) => {
+    const auth = getAuth(c);
+
+    if (!auth?.userId) {
+      return c.json({
+        message: 'You are not logged in.',
+      });
+    }
+
+    return c.json({
+      message: 'You are logged in!',
+      userId: auth.userId,
+    });
+  })
   .get('api/user/me', async (c) => {
     const auth = {
       userId: c.get('userId'),
