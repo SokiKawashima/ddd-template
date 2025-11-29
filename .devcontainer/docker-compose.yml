@@ -5,7 +5,13 @@ services:
     command: sleep infinity
     environment:
       # DATABASE_URL: postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+      PGHOST: ${PGHOST}
+      PGPORT: ${PGPORT}
+      PGDATABASE: ${PGDATABASE}
       DATABASE_URL: ${DATABASE_URL}
+      ENV_NAME: ${ENV_NAME}
       # AWS_PROFILE_PREFIX: ${AWS_PROFILE_PREFIX:-devision}
     volumes:
       - ../:/workspace:cached

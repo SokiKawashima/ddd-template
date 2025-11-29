@@ -8,6 +8,12 @@
     "npm": "please_use_pnpm_instead",
     "yarn": "please_use_pnpm_instead"
   },
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
   "packageManager": "pnpm@10.12.4",
   "scripts": {
     "build": "tsc --build",
@@ -19,6 +25,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "catalog:",
     "@prisma/client": "catalog:",
+    "@prisma/client-runtime-utils": "catalog:",
     "@prisma/config": "catalog:",
     "@repo/core": "workspace:^",
     "aws-jwt-verify": "catalog:",

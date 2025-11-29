@@ -1,12 +1,11 @@
-import type { PrismaClient } from '@prisma/client';
 import type { ITXClientDenyList } from '@prisma/client/runtime/client';
-
 import {
   type IReadOnlyTxHandle,
   type IReadWriteTxHandle,
   ITxExecutor,
   type TransactionOptions,
 } from '@repo/core/+shared/ports/transaction';
+import type { PrismaClient } from './generated/prisma/client.js';
 
 type PrismaTx = Omit<PrismaClient, ITXClientDenyList>;
 

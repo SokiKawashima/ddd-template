@@ -7,9 +7,6 @@ aws-cli = "latest"
 "npm:@openai/codex" = "latest"
 "npm:pnpm" = "10.12"
 
-[tasks.ls]
-run = "pm2 ls"
-
 #####################################
 ########## workspace tasks ##########
 #####################################
@@ -55,4 +52,7 @@ run = "pnpm prisma studio --url postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${P
 ########## environment ##############
 #####################################
 [env]
-mise.file = "{{config_root}}/applications/.env"
+# mise.file = "{{config_root}}/applications/.env"
+_.file = '{{config_root}}/applications/.env'
+# _.path = ['{{config_root}}/bin']
+

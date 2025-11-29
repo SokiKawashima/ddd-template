@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "envMode": "strict",
-  "globalPassThroughEnv": ["ENV_NAME"],
+  "globalPassThroughEnv": ["ENV_NAME", "PGUSER", "PGPASSWORD", "PGHOST", "PGPORT", "PGDATABASE"],
   "tasks": {
     "dev": {
       "cache": false
