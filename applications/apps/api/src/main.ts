@@ -1,7 +1,7 @@
-import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
+import { clerkMiddleware } from '@hono/clerk-auth';
 import { serve } from '@hono/node-server';
 import { zValidator } from '@hono/zod-validator';
-import { AuthenticatedUserParser } from '@repo/core/+shared/helpers/usecase-constructure';
+import { AuthenticatedUser } from '@repo/core/user/entity';
 import { GetMe, GetProfile } from '@repo/core/user/usecases/index';
 import { Hono } from 'hono';
 import { env } from './env.js';
@@ -11,8 +11,7 @@ import { makeSharedDeps } from './shared-deps.js';
 const deps = makeSharedDeps();
 const route = new Hono()
   // API Routes
-  .get('api/health', (c) => c.json({ message: 'OK' }))
-  .use('/*', authMiddleware())
+  .get('/api/health', (c) => c.json({ message: 'OK' }))
   .use(
     '*',
     clerkMiddleware({
@@ -20,38 +19,17 @@ const route = new Hono()
       publishableKey: env.CLERK_PUBLISHABLE_KEY,
     })
   )
-  .get('/', (c) => {
-    const auth = getAuth(c);
-
-    if (!auth?.userId) {
-      return c.json({
-        message: 'You are not logged in.',
-      });
-    }
-
-    return c.json({
-      message: 'You are logged in!',
-      userId: auth.userId,
-    });
-  })
-  .get('api/user/me', async (c) => {
-    const auth = {
-      userId: c.get('userId'),
-      name: c.get('name'),
-      email: c.get('email'),
-    };
-    const authenticatedUser = AuthenticatedUserParser.parseServer(auth);
+  .use('/api/*', authMiddleware(deps))
+  .get('/api/user/me', async (c) => {
+    const auth = c.get('principal');
+    const authenticatedUser = AuthenticatedUser.parseServer(auth);
     const getMe = GetMe.makeUsecase(deps);
     const me = await getMe(authenticatedUser);
     return c.json(me, 200);
   })
-  .post('api/user/profile', zValidator('json', GetProfile.zInput), async (c) => {
-    const auth = {
-      userId: c.get('userId'),
-      name: c.get('name'),
-      email: c.get('email'),
-    };
-    const authenticatedUser = AuthenticatedUserParser.parseServer(auth);
+  .post('/api/user/profile', zValidator('json', GetProfile.zInput), async (c) => {
+    const auth = c.get('principal');
+    const authenticatedUser = AuthenticatedUser.parseServer(auth);
     const getProfile = GetProfile.makeUsecase(deps);
     const input = c.req.valid('json');
     const profile = await getProfile(authenticatedUser, input);

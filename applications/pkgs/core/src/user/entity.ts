@@ -16,3 +16,15 @@ export type User = z.infer<typeof zUser>;
 export const User = {
   parseServer: zodServerDataParser(zUser),
 };
+
+export const zAuthenticatedUser = z
+  .object({
+    userId: zUserId,
+    name: zUserName,
+    email: zUserEmail,
+  })
+  .brand<'AuthenticatedUser'>();
+export type AuthenticatedUser = z.infer<typeof zAuthenticatedUser>;
+export const AuthenticatedUser = {
+  parseServer: zodServerDataParser(zAuthenticatedUser),
+};

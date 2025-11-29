@@ -14,9 +14,8 @@ export type Deps = Readonly<{
 }>;
 
 export const makeUsecase = defineAuthedUsecase<Deps, Input, Output>(async (_deps, auth, _input) => {
-  const { userId } = auth;
   return currentUserDto.parseServer({
-    userId: userId,
+    userId: auth.userId,
     name: auth.name,
     email: auth.email,
   });

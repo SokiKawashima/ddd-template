@@ -1,19 +1,5 @@
 import type { ResultAsync } from 'neverthrow';
-import z from 'zod';
-import { zUserEmail, zUserId, zUserName } from '../../user/value-object.js';
-import { zodServerDataParser } from './zod.js';
-
-export const zAuthenticatedUser = z
-  .object({
-    userId: zUserId,
-    name: zUserName,
-    email: zUserEmail,
-  })
-  .brand<'AuthenticatedUser'>();
-export type AuthenticatedUser = z.infer<typeof zAuthenticatedUser>;
-export const AuthenticatedUserParser = {
-  parseServer: zodServerDataParser(zAuthenticatedUser),
-};
+import type { AuthenticatedUser } from '../../user/entity.js';
 
 // T が ResultAsync 型の場合はそのまま、それ以外は Promise で包む。
 // Union Distribution を防ぐために T ではなく [T] でタプル型にしている
@@ -28,7 +14,7 @@ type AsyncOutput<T> = [T] extends [ResultAsync<infer OK, infer ERR>]
  * execute をカリー化しているとも言える。
  *
  * @param execute ユースケースの実行関数
- * @returns (TDeps) => (AuthenticatedPrincipal, I) => Promise<O>
+ * @returns (TDeps) => (AuthenticatedUser, I) => Promise<O>
  */
 export const defineAuthedUsecase = <TDeps, I, O>(
   execute: (deps: TDeps, auth: AuthenticatedUser, input: I) => AsyncOutput<O>

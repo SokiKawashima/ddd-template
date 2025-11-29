@@ -1,16 +1,29 @@
+import { getAuth } from '@hono/clerk-auth';
+import type { AuthenticatedUser } from '@repo/core/user/entity';
+import { parseInput } from '@repo/core/user/usecases/authenticate';
+import { Authenticate } from '@repo/core/user/usecases/index';
 import { createMiddleware } from 'hono/factory';
+import type { SharedDeps } from '../shared-deps.js';
 
-export const authMiddleware = () => {
+export const authMiddleware = (deps: SharedDeps) => {
   return createMiddleware<{
     Variables: {
-      userId: string;
-      name: string;
-      email: string;
+      principal: AuthenticatedUser;
     };
   }>(async (c, next) => {
-    c.set('userId', 'e87a5669-2953-49cb-bc2d-6f2c7a977fa3');
-    c.set('name', 'John Doe');
-    c.set('email', 'john.doe@example.com');
-    await next();
+    const auth = getAuth(c);
+    if (auth?.userId) {
+      const authenticate = Authenticate.makeUsecase(deps);
+      const userId = `user_${auth.userId}`;
+      const input = parseInput({ userId });
+      const authenticatedUser = await authenticate(input);
+      if (!authenticatedUser) {
+        return c.json('no found user', 404);
+      }
+      c.set('principal', authenticatedUser);
+      await next();
+      return;
+    }
+    return c.json('unauthorized', 401);
   });
 };
