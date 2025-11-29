@@ -1,7 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "envMode": "strict",
-  "globalPassThroughEnv": ["ENV_NAME", "PGUSER", "PGPASSWORD", "PGHOST", "PGPORT", "PGDATABASE"],
+  "globalPassThroughEnv": [
+    "ENV_NAME",
+    "POSTGRES_USER",
+    "POSTGRES_PASSWORD",
+    "POSTGRES_HOST",
+    "POSTGRES_PORT",
+    "POSTGRES_DB",
+    "DATABASE_URL"
+  ],
   "tasks": {
     "dev": {
       "cache": false

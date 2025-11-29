@@ -8,7 +8,7 @@ export type SharedDeps = ReturnType<typeof makeSharedDeps>;
 export const makeSharedDeps = () => {
   // db
   const prismaClient = createPrismaClient({
-    databaseUrl: env.APP_DATABASE_URL,
+    databaseUrl: env.DATABASE_URL,
   });
   const txExecutor = new PrismaTxExecutor(prismaClient);
 

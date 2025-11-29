@@ -7,7 +7,7 @@ export default defineConfig({
         path: './migrations'
     },
     datasource: {
-        url: 'postgresql://admin:password@postgres:5432/main'
+        url: env.DATABASE_URL.toString()
     },
     
 });
