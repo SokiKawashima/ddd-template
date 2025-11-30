@@ -14,6 +14,8 @@ export type Deps = Readonly<{
 }>;
 
 export const makeUsecase = defineAuthedUsecase<Deps, Input, Output>(async (_deps, auth, _input) => {
+  // 今はAuthenticatedUserの内容で足りているから，コンテキストの情報だけで十分
+  // 招待的にUserReepositoryから取得して渡す必要が出てくるかも
   return currentUserDto.parseServer({
     userId: auth.userId,
     name: auth.name,

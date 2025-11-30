@@ -12,6 +12,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       DATABASE_URL: ${DATABASE_URL}
       ENV_NAME: ${ENV_NAME}
+      MOCK_AUTH: ${MOCK_AUTH}
       # AWS_PROFILE_PREFIX: ${AWS_PROFILE_PREFIX:-devision}
     volumes:
       - ../:/workspace:cached

@@ -3,6 +3,7 @@ import type { AuthenticatedUser } from '@repo/core/user/entity';
 import { parseInput } from '@repo/core/user/usecases/authenticate';
 import { Authenticate } from '@repo/core/user/usecases/index';
 import { createMiddleware } from 'hono/factory';
+import { env } from '../env.js';
 import type { SharedDeps } from '../shared-deps.js';
 
 export const authMiddleware = (deps: SharedDeps) => {
@@ -11,10 +12,12 @@ export const authMiddleware = (deps: SharedDeps) => {
       principal: AuthenticatedUser;
     };
   }>(async (c, next) => {
-    const auth = getAuth(c);
-    if (auth?.userId) {
+    if (env.MOCK_AUTH) {
       const authenticate = Authenticate.makeUsecase(deps);
-      const input = parseInput({ clerkId: auth.userId });
+      // bearer tokenとしてclerkIdがuser_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxの形式で入ってくる想定
+      // biome-ignore lint/security/noSecrets: false positive
+      const bearerToken = c.req.header('Authorization')?.split(' ')[1] ?? '';
+      const input = parseInput({ clerkId: bearerToken });
       const authenticatedUser = await authenticate(input);
       if (!authenticatedUser) {
         return c.json('no found user', 404);
@@ -22,7 +25,20 @@ export const authMiddleware = (deps: SharedDeps) => {
       c.set('principal', authenticatedUser);
       await next();
       return;
+    } else {
+      const auth = getAuth(c);
+      if (auth?.userId) {
+        const authenticate = Authenticate.makeUsecase(deps);
+        const input = parseInput({ clerkId: auth.userId });
+        const authenticatedUser = await authenticate(input);
+        if (!authenticatedUser) {
+          return c.json('no found user', 404);
+        }
+        c.set('principal', authenticatedUser);
+        await next();
+        return;
+      }
+      return c.json('unauthorized', 401);
     }
-    return c.json('unauthorized', 401);
   });
 };

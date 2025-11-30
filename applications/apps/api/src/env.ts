@@ -10,6 +10,10 @@ export const zEnv = z
     DATABASE_URL: z.url(),
     CLERK_SECRET_KEY: z.string(),
     CLERK_PUBLISHABLE_KEY: z.string(),
+    MOCK_AUTH: z
+      .enum(['true', 'false'])
+      .default('false')
+      .transform((val) => val === 'true'),
   })
   .readonly();
 

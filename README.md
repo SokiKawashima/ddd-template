@@ -23,5 +23,6 @@ prisma7使いたいから一旦許容する
 mise setで確認
 
 環境変数はturbo.jsonで指定！！
+.env / turbo.json / docker-compose.yml / api/src/env.tsなど
 
 ログイン後に__sessionで取得可
