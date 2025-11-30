@@ -1,0 +1,51 @@
+import { clerkMiddleware } from '@hono/clerk-auth';
+import { serve } from '@hono/node-server';
+import { zValidator } from '@hono/zod-validator';
+import { AuthenticatedUser } from '@repo/core/user/entity';
+import { GetMe, GetProfile } from '@repo/core/user/usecases/index';
+import { Hono } from 'hono';
+import { env } from './env.js';
+import { authMiddleware } from './middlewares/auth.js';
+import { makeSharedDeps } from './shared-deps.js';
+
+const deps = makeSharedDeps();
+const route = new Hono()
+  // API Routes
+  .get('/api/health', (c) => c.json({ message: 'OK' }))
+  .use(
+    '*',
+    clerkMiddleware({
+      secretKey: env.CLERK_SECRET_KEY,
+      publishableKey: env.CLERK_PUBLISHABLE_KEY,
+    })
+  )
+  .use('/api/*', authMiddleware(deps))
+  .get('/api/user/me', async (c) => {
+    const auth = c.get('principal');
+    const authenticatedUser = AuthenticatedUser.parseServer(auth);
+    const getMe = GetMe.makeUsecase(deps);
+    const me = await getMe(authenticatedUser);
+    return c.json(me, 200);
+  })
+  .post('/api/user/profile', zValidator('json', GetProfile.zInput), async (c) => {
+    const auth = c.get('principal');
+    const authenticatedUser = AuthenticatedUser.parseServer(auth);
+    const getProfile = GetProfile.makeUsecase(deps);
+    const input = c.req.valid('json');
+    const profile = await getProfile(authenticatedUser, input);
+    if (!profile) {
+      return c.json(null, 404);
+    }
+    return c.json(profile, 200);
+  });
+export type HonoRouteType = typeof route;
+
+serve(
+  {
+    fetch: route.fetch,
+    port: env.API_PORT,
+  },
+  (info) => {
+    console.log(`Server is running on http://localhost:${info.port}`);
+  }
+);

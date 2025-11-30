@@ -1,0 +1,144 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.5/schema.json",
+  "root": true,
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedProperties": "on", // CSS のプロパティをソートする
+        "useSortedAttributes": "on", // JSX の attributes をソートする
+        "useSortedKeys": "off" // JSON のキーはソートしない
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "es5",
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": true // jsonファイルがJSON with comments形式で認識されるようになる
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "formatter": {
+    "formatWithErrors": false,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "recommended": true,
+        // off
+        "noConsole": "off",
+        "useAwait": "off",
+        // error
+        "noExplicitAny": "error"
+      },
+      "a11y": "error",
+      "complexity": {
+        "recommended": true,
+        "useLiteralKeys": "off" // tsconfig の noPropertyAccessFromIndexSignature: true と競合するので off
+      },
+      "performance": {
+        "recommended": true,
+        "noAccumulatingSpread": "error",
+        "noDelete": "error"
+      },
+      "security": "error",
+      "style": {
+        "recommended": true,
+        // off
+        "noDefaultExport": "off",
+        "noImplicitBoolean": "off", // JSX のオプション。 <div disabled={true} /> のように書くのは面倒なのでoff。
+        "useBlockStatements": "off",
+        "useFilenamingConvention": "off",
+        "useExplicitLengthCheck": "off",
+        // error
+        "noNamespace": "error",
+        "noCommonJs": "error",
+        "noDoneCallback": "error",
+        "noEnum": "error",
+        "noExportedImports": "error",
+        "noInferrableTypes": "error",
+        "noParameterAssign": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useAsConstAssertion": "error",
+        "useConst": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useNumberNamespace": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "useTrimStartEnd": "error"
+      },
+      "correctness": {
+        "recommended": true,
+        "useImportExtensions": "off"
+      },
+      "nursery": {
+        "recommended": true
+      }
+    }
+  },
+  "files": {
+    "includes": [
+      "**/*.ts",
+      "**/*.js",
+      "**/*.tsx",
+      "**/*.json",
+      "**/*.jsonc",
+      // --- excludes (from biome v2) ---
+      "!**/node_modules",
+      "!**/dist",
+      "!**/.claude",
+      "!**/.turbo",
+      "!**/.tanstack",
+      "!**/prisma",
+      "!**/tmp",
+      "!**/cdk.context.json",
+      "!**/cdk.out",
+      "!**/package-lock.json",
+      "!**/typescript.json",
+      "!**/routeTree.gen.ts"
+    ]
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "develop"
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.test.ts", "**/*.mock.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noNonNullAssertion": "off"
+          },
+          "complexity": {
+            "noUselessConstructor": "off"
+          }
+        }
+      }
+    }
+  ]
+}

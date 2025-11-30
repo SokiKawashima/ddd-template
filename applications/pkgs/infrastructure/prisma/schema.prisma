@@ -1,0 +1,22 @@
+datasource db {
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client"   
+    output   = "../src/postgres/generated/prisma"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./ER-Diagram.gen.md"
+}
+
+model User {
+    id String @id @default(uuid(7)) @db.Uuid
+    clerkId String @unique
+    name String
+    email String @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

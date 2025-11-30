@@ -1,0 +1,58 @@
+[tools]
+node = "22"
+
+aws-cli = "latest"
+"npm:pm2" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@openai/codex" = "latest"
+"npm:pnpm" = "10.12"
+
+#####################################
+########## workspace tasks ##########
+#####################################
+[tasks."dev"]
+dir = "{{config_root}}/applications"
+run = "pnpm run dev"
+
+[tasks."check"]
+dir = "{{config_root}}/applications"
+run = "pnpm run check"
+
+[tasks."test"]
+dir = "{{config_root}}/applications"
+run = "pnpm run test"
+
+[tasks."build"]
+dir = "{{config_root}}/applications"
+run = "pnpm run build"
+
+#####################################
+####### infrastructure tasks ########
+#####################################
+[tasks."prisma:generate"]
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma generate"
+
+[tasks."prisma:migrate:dev"] # mise run prisma:migrate --name <migration_name>
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma migrate dev --schema prisma/schema.prisma --config prisma/prisma.config.ts"
+
+[tasks."prisma:migrate:deploy"]
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma migrate deploy --schema prisma/schema.prisma --config prisma/prisma.config.ts"
+
+[tasks."prisma:migrate:reset"]
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma migrate reset --schema prisma/schema.prisma --config prisma/prisma.config.ts"
+
+[tasks."prisma:studio"]
+dir = "{{config_root}}/applications/pkgs/infrastructure/prisma"
+run = "pnpm prisma studio --url postgres://admin:password@postgres:5432/main"
+#####################################
+########## environment ##############
+#####################################
+[env]
+# mise.file = "{{config_root}}/applications/.env"
+_.file = '{{config_root}}/applications/.env'
+# _.path = ['{{config_root}}/bin']
+

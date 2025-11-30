@@ -1,0 +1,30 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
+    // core 専用の設定
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext", // @repo/apiではバンドラを使わないので拡張子必須のモジュール解決を使用する
+    "target": "ES2024",
+    "types": [], // ブラウザでも実行されうるので node の型もグローバルに読み込まない
+    "lib": [
+      "ES2024",
+      "ESNext.Array",
+      "ESNext.AsyncIterable",
+      "ESNext.Collection",
+      "ESNext.Intl",
+      "ESNext.Iterator",
+      "ESNext.Promise"
+    ]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", ".turbo"]
+}

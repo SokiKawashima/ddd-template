@@ -1,1 +1,1 @@
-# ddd-template
+# ddd

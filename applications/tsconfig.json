@@ -1,0 +1,11 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig",
+  "files": [],
+  "references": [
+    { "path": "./apps/api" },
+    { "path": "./apps/cdk" },
+    { "path": "./apps/front" },
+    { "path": "./pkgs/core" },
+    { "path": "./pkgs/infrastructure" }
+  ]
+}

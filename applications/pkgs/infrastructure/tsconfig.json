@@ -1,0 +1,31 @@
+{
+  "$schema": "https://www.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Project References用の設定
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
+    // infrastructure 専用の設定
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext", // @repo/infrastructureではバンドラを使わないので拡張子必須のモジュール解決を使用する
+    "target": "ES2024",
+    "types": ["node"],
+    "lib": [
+      "ES2024",
+      "ESNext.Array",
+      "ESNext.AsyncIterable",
+      "ESNext.Collection",
+      "ESNext.Intl",
+      "ESNext.Iterator",
+      "ESNext.Promise"
+    ]
+  },
+  "include": ["src"], // src/**/* と同じ
+  "exclude": ["node_modules", "dist", ".turbo", "prisma/migrations"]
+}

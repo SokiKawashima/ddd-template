@@ -1,0 +1,97 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-postgres
+{
+  "name": "ddd",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "zsh .devcontainer/init.sh",
+  "features": {
+    "ghcr.io/devcontainers-extra/features/mise:1": {},
+    "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+      "plugins": "zsh-syntax-highlighting zsh-autosuggestions zsh-completions",
+      "omzPlugins": "https://github.com/zsh-users/zsh-syntax-highlighting https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-completions"
+    },
+    "./feature": {}
+  },
+
+  // rootユーザでログイン
+  "remoteUser": "root",
+
+  // パスを通す
+  "remoteEnv": {
+    "PATH": "/root/.local/share/mise/shims:${containerEnv:PATH}"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "openai.chatgpt",
+        "biomejs.biome",
+        "tamasfe.even-better-toml",
+        "bierner.markdown-mermaid",
+        "prisma.prisma-insider"
+      ],
+      "settings": {
+        /** ============================== */
+        /** ワークスペースのデフォルトパスを設定 */
+        "terminal.integrated.cwd": "/workspace/applications",
+        /** ============================== */
+        /** フォーマットの設定 */
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "editor.defaultFormatter": "biomejs.biome",
+        "[javascript]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[javascriptreact]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "biomejs.biome"
+        },
+        "editor.codeActionsOnSave": {
+          "quickfix.biome": "explicit",
+          "source.organizeImports.biome": "explicit"
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh",
+            "args": ["-l"]
+          }
+        },
+        "biome.lspBin": "/workspace/applications/node_modules/@biomejs/biome/bin/biome",
+        // "biome.configurationPath": "/workspace/applications/biome.jsonc", // うまく動かないのでコメントアウトしてルートに配置した
+        /** ============================== */
+        /** miseの設定 */
+        "mise.binPath": "/usr/local/bin/mise",
+        /** ============================== */
+        /** ファイルの監視を無効化 */
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/node_modules/*/**": true
+        },
+        /** ============================== */
+        /** ターミナルのベルを無効化 */
+        "terminal.integrated.enableBell": false,
+        "editor.accessibilitySupport": "off",
+        "accessibility.signals.terminalCommandFailed": {
+          "sound": "off",
+          "announcement": "off"
+        },
+        "accessibility.signals.terminalCommandSucceeded": {
+          "sound": "off",
+          "announcement": "off"
+        },
+        "accessibility.signalOptions.volume": 0
+        /** ============================== */
+      }
+    }
+  }
+}

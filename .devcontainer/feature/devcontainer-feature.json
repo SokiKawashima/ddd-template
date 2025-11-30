@@ -1,0 +1,7 @@
+{
+  "id": "additional-tools",
+  "version": "1.0.0",
+  "name": "Additional Tools",
+  "documentationURL": "",
+  "description": "miseで管理できないツールをインストールするために使うfeature"
+}

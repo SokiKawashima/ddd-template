@@ -1,0 +1,18 @@
+.env
+tmp/
+.DS_Store
+
+# Text Editor
+.cursor
+.vscode
+
+# CLI local config
+mise.local.toml
+mise.*.local.toml
+
+# ECMA Script
+.pnpm-store
+
+# Personal
+memo.md
+.local

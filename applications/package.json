@@ -1,0 +1,27 @@
+{
+  "$schema": "https://www.schemastore.org/package.json",
+  "name": "ddd",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "pnpm": "10.12.4",
+    "npm": "please_use_pnpm_instead",
+    "yarn": "please_use_pnpm_instead"
+  },
+  "packageManager": "pnpm@10.12.4",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "check": "turbo run check"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "tsx": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "vite-tsconfig-paths": "catalog:",
+    "vitest": "catalog:"
+  }
+}
