@@ -12,3 +12,7 @@ mise.*.local.toml
 
 # ECMA Script
 .pnpm-store
+
+# Personal
+memo.md
+.local
